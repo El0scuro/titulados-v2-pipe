@@ -1,0 +1,27 @@
+.boton{
+    border-radius: 20px; 
+    text-align: center; 
+    height: 300px; 
+    width: 230px;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
+    background-color: rgba(0, 60, 88, 1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+}
+.color{
+  color: white;
+}
+.boton:hover{
+    transform: scale(1.05) translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+.boton:visited{
+  color: inherit;
+}

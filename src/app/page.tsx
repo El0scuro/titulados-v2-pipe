@@ -37,8 +37,8 @@ export default function Home() {
   const token = useAccessToken();
   // Next.js router hook for navigation
   const router = useRouter();
-
   // Display a loading indicator while user data is being fetched
+  console.log("Token actual:", token);
   if (isLoading) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24">
@@ -48,7 +48,7 @@ export default function Home() {
       </main>
     );
   }
-
+  
   /**
    * Handles the login confirmation.
    * It validates the user's role by making an API call and
@@ -56,17 +56,21 @@ export default function Home() {
    */
   async function handleLogin() {
     try {
+    console.log("WEEEEEEEEEEEEEEEEEEEEEEEEEEEENA PO")
+
       // Make an API call to validate the user's role, including the access token
-      const response = await axios.get(`${__url}/user/validate/`, {
-        headers: { Authorization: `Bearer ${token}` }
+      
+      const response = await axios.get(`${__url}/user/validate`, {
+      headers: { Authorization: `Bearer ${token}` }
       });
-      console.log(response.data); // Log the response for debugging
+
+      console.log("123456789",response.data); // Log the response for debugging
 
       // Redirect based on the user's role
       if (response.data?.user === 'admin') {
         router.push("/main"); // Redirect to admin dashboard
-      } else if (response.data?.user === 'student') {
-        router.push("/student"); // Redirect to student dashboard
+      } else if (response.data?.user === 'estudiante') {
+        router.push("/estudiante"); // Redirect to student dashboard
       }
     } catch (error) {
       // Log any errors that occur during the login process
@@ -75,9 +79,11 @@ export default function Home() {
       // For example, using a Snackbar or a custom modal
     }
   }
-
+  console.log("TOKEEEEEEEEEEEEEEEEEEEN", token);
   return (
+    
     <>
+    
       {/* Set page title and meta description for SEO */}
       <title>Confirmación de usuario</title>
       <meta name="description" content="Confirme su identidad para acceder al sistema de seguimientos académicos UV." />
@@ -159,7 +165,8 @@ export default function Home() {
                 <Grid component="div">
                   <Button
                     variant="contained"
-                    onClick={handleLogin} // Call handleLogin function on click
+                    disabled={!token}  // espera a que token exista
+                    onClick={handleLogin}
                     sx={{
                       width: '100%',
                       py: 1.75,
@@ -176,6 +183,7 @@ export default function Home() {
                   >
                     Confirmar
                   </Button>
+                  
                 </Grid>
 
                 {/* Logout Button */}

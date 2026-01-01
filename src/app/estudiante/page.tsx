@@ -1,8 +1,9 @@
-import { Box } from '@mui/material'
-import Typography from '@mui/material/Typography'
 import React from 'react'
+import { Box, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 
-function page() {
+function Page() {
+    const bull = '•' // si quieres usar este símbolo como separador
+
     return (
         <>
             <Box sx={{ padding: 2, textAlign: 'center' }}>
@@ -13,7 +14,8 @@ function page() {
                     de manera eficiente y a mantener un registro adecuado de su información académica.
                 </Typography>
             </Box>
-            <Card sx={{ minWidth: 275 }}>
+
+            <Card sx={{ minWidth: 275, margin: 2 }}>
                 <CardContent>
                     <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
                         Word of the Day
@@ -36,4 +38,4 @@ function page() {
     )
 }
 
-                export default page
+export default Page

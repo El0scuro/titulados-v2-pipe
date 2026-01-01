@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { StyledRoot } from './StyledRoot';
 import theme from './theme'
 import { ThemeProvider } from "@mui/material/styles";
 import { auth0 } from "../lib/auth0"
 import { TokenProvider } from './context/TokenContext';
-import Login from "./components/login";
+import Login from "./components/login/page";
+import estilo from "./components/login/page.module.css"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +23,12 @@ export default async function RootLayout({
 }>) {
 
   const session = await auth0.getSession()
-
+  console.log("¿Hay sesión en el Layout?:", !!session) // Esto saldrá en la terminal negra
 
   if (!session) {
     return (
       <html lang="en">
-        <body className={inter.className}>
+        <body>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <Login />
@@ -42,7 +42,7 @@ export default async function RootLayout({
   if (session) {
     return (
       <html lang="en">
-        <body className={inter.className}>
+        <body className={estilo.background}>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <StyledRoot>

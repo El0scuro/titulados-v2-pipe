@@ -7,7 +7,7 @@ import theme from '../theme'
 import { ThemeProvider } from "@mui/material/styles";
 import { auth0 } from "../../lib/auth0"
 import { TokenProvider } from '../context/TokenContext';
-import Login from "../components/login";
+import Login from "../components/login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
   if (!session) {
     return (
       <html lang="en">
-        <body className={inter.className}>
+        <body>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <Login />

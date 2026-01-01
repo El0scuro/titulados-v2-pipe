@@ -1,0 +1,134 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.contenedor_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.header{
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    max-width: 960px;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    background-color: rgba(0, 60, 88, 1);
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.1);
+    
+}
+
+.titulo{
+    font-weight: 100; 
+    font-size: 40px;
+    color: white;
+
+}
+.subtitulo{
+  font-weight: 50; 
+  font-size: 20px;
+  color: white;
+}
+
+.contenedor_botones{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: auto;
+    gap: 20px;
+}
+
+.contenedor_info{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  border-radius: 20px; 
+  text-align: center; 
+  height: 200px; 
+  width: 1000px;  
+  background-color: rgba(0, 60, 88, 1);
+}
+.div_left{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.info{
+  height: auto; 
+  width: 600px;
+  color: white;
+  box-shadow: none;
+
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+.redes{
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+  gap: 10px;
+  
+}
+.div_right{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 20px;
+  gap: 10px;
+}
+.foto1{
+  height: auto; 
+  width: 150px;
+}
+.foto2{
+  height: auto; 
+  width: 150px;
+}
+/*-----------------------------------------*/ /*Fondo pantalla login*/
+.background{
+    background-size: cover;
+    animation: cambio_Foto 55s infinite;
+}
+
+@keyframes cambio_Foto {
+  0%, 9% {
+    background-image: url("../../../Facultades/Arquitectura.jpeg");
+  }
+  9.1%, 18.1% {
+    background-image: url("../../../Facultades/Ciencias\ del\ Mar\ y\ de\ Recursos\ Naturales.webp");
+  }
+  18.2%, 27.2% {
+    background-image: url("../../../Facultades/Ciencias\ Económicas\ y\ Administrativas.webp");
+  }
+  27.3%, 36.3% {
+    background-image: url("../../../Facultades/Ciencias\ Sociales.webp");
+  }
+  36.4%, 45.4% {
+    background-image: url("../../../Facultades/Ciencias.jpg");
+  }
+  45.5%, 54.5% {
+    background-image: url("../../../Facultades/Derecho.jpeg");
+  }
+  54.6%, 63.6% {
+    background-image: url("../../../Facultades/Farmacia.webp");
+  }
+  63.7%, 72.7% {
+    background-image: url("../../../Facultades/Humanidades\ y\ Educación.webp");
+  }
+  72.8%, 81.8% {
+    background-image: url("../../../Facultades/Ingeniería.webp");
+  }
+  81.9%, 90.9% {
+    background-image: url("../../../Facultades/Medicina.webp");
+  }
+  91%, 100% {
+    background-image: url("../../../Facultades/Odontología.webp");
+  }
+}
