@@ -1,11 +1,10 @@
-"use cliente";
+'use client';
 import estilo from "./style_boton.module.css"
 import Link from "next/link";
 import PersonIcon from '@mui/icons-material/Person';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import SchoolIcon from '@mui/icons-material/School';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Color from "./style_boton.module.css"
 const perfiles = [
     {
       id: 'estudiantes',
@@ -13,6 +12,7 @@ const perfiles = [
       description: 'Suba sus documentos necesarios para iniciar su proceso de titulación.',
       icon: PersonIcon,
       link: '/auth/login',
+      
     },
     {
       id: 'secretarias',
@@ -42,13 +42,17 @@ export default function Boton_Perfil() {
             {perfiles.map((perfil) => {
                 const Icon = perfil.icon
                 return(
-                    <Link key={perfil.id} href={perfil.link} className={estilo.boton}>
-                        <perfil.icon sx={{
+                    <Link 
+                      key={perfil.id} 
+                      href={perfil.link} 
+                      className={estilo.boton}                  
+                    >
+                        <Icon sx={{
                           fontSize: 70,
                           color: "white",
                         }}/>
-                        <h3 className={Color.color}>{perfil.title} </h3>
-                        <p className={Color.color}>{perfil.description}</p>
+                        <h3 className={estilo.color}>{perfil.title} </h3>
+                        <p className={estilo.color}>{perfil.description}</p>
                     </Link>
                 );
             })}

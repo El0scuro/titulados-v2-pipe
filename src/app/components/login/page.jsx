@@ -15,7 +15,7 @@ export default function LoginPage(){
             </header>
             
             <div className={Estilo_login.contenedor_botones}>
-                <Boton_Perfil></Boton_Perfil>
+                <Botones/>
             </div>
             <div className={Estilo_login.contenedor_info}>
                 <div className={Estilo_login.div_left}>

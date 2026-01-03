@@ -7,6 +7,8 @@ import __url from "../lib/const"; // Assuming this path is correct for your proj
 import { useAccessToken } from './context/TokenContext'; // Assuming this path is correct
 import { useUser } from "@auth0/nextjs-auth0";
 import axios from "axios";
+import Alerta from "./components/alerta/alert";
+
 
 /**
  * Home Component
@@ -21,6 +23,11 @@ import axios from "axios";
  * @returns {JSX.Element} The Home component.
  */
 export default function Home() {
+  const [alerta, setAlerta] = useState<{
+  type: 'info' | 'error' | 'success' | 'warning';
+  message: React.ReactNode;
+  } | null>(null);
+
   // Styled component for generic Paper items (not directly used in this specific layout,
   // but kept as it was in the original snippet, useful for other parts of your app).
   const Item = styled(Paper)(({ theme }) => ({
@@ -38,7 +45,7 @@ export default function Home() {
   // Next.js router hook for navigation
   const router = useRouter();
   // Display a loading indicator while user data is being fetched
-  console.log("Token actual:", token);
+  
   if (isLoading) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24">
@@ -56,7 +63,7 @@ export default function Home() {
    */
   async function handleLogin() {
     try {
-    console.log("WEEEEEEEEEEEEEEEEEEEEEEEEEEEENA PO")
+    
 
       // Make an API call to validate the user's role, including the access token
       
@@ -64,22 +71,47 @@ export default function Home() {
       headers: { Authorization: `Bearer ${token}` }
       });
 
-      console.log("123456789",response.data); // Log the response for debugging
+      
 
       // Redirect based on the user's role
-      if (response.data?.user === 'admin') {
-        router.push("/main"); // Redirect to admin dashboard
+      // Redirect based on the user's role
+      if (response.data?.user === 'profesor') {
+        router.push("/profesor"); // Redirect to profesores dashboard
       } else if (response.data?.user === 'estudiante') {
         router.push("/estudiante"); // Redirect to student dashboard
-      }
-    } catch (error) {
+      } else if (response.data?.user === 'jefatura') {
+        router.push("/jefatura"); // Redirect to jefatura dashboard
+      } else if (response.data?.user === 'secretario') {
+        router.push("/secretario"); // Redirect to secretary dashboard
+      } 
+    } catch (error:any) {
       // Log any errors that occur during the login process
-      console.error("Login error:", error);
+      
+      if (error.response?.status === 404) {
+        
+        setAlerta({
+        type: 'warning',
+        message:(
+          <>
+             no registrado en el sistema.<br/>
+            Contactar al académico Sergio Gonzalez al correo:<br/>
+            <a href="mailto:SERGIO.GONZALEZ@UV.CL?subject=Problema%20de%20acceso&body=No%20puedo%20ingresar%20al%20sistema">
+              SERGIO.GONZALEZ@UV.CL
+            </a>
+          </> 
+        )
+        
+        
+      
+    });
+    
+      }
+      
       // Optionally, display an error message to the user
       // For example, using a Snackbar or a custom modal
     }
   }
-  console.log("TOKEEEEEEEEEEEEEEEEEEEN", token);
+
   return (
     
     <>
@@ -88,7 +120,7 @@ export default function Home() {
       <title>Confirmación de usuario</title>
       <meta name="description" content="Confirme su identidad para acceder al sistema de seguimientos académicos UV." />
 
-      {/* Render content only if user data is available (not loading) */}
+      
       {user && (
         // Main container for the page, centered vertically and horizontally.
         // Uses Tailwind CSS classes for responsive padding and centering.
@@ -129,6 +161,7 @@ export default function Home() {
                   >
                     Sistema de titulados UV
                   </Typography>
+                  
                 </Grid>
 
                 {/* Instruction Typography */}
@@ -160,7 +193,12 @@ export default function Home() {
                     </Typography>
                   </Card>
                 </Grid>
-
+                {alerta && (
+                  <Alerta 
+                    type={alerta.type}  
+                    message={alerta.message}
+                  />
+                )}
                 {/* Confirm Button */}
                 <Grid component="div">
                   <Button

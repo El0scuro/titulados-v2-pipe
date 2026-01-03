@@ -1,0 +1,15 @@
+.structure{
+    padding: 10px;
+    border-radius: 6px;
+    background-color: aliceblue;
+    color:black;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.459); 
+    white-space: pre-line;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+}
+.structure:visited{
+    color: inherit;
+}

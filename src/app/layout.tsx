@@ -23,7 +23,7 @@ export default async function RootLayout({
 }>) {
 
   const session = await auth0.getSession()
-  console.log("¿Hay sesión en el Layout?:", !!session) // Esto saldrá en la terminal negra
+  
 
   if (!session) {
     return (
@@ -42,7 +42,7 @@ export default async function RootLayout({
   if (session) {
     return (
       <html lang="en">
-        <body className={estilo.background}>
+        <body>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <StyledRoot>
