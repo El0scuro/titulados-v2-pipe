@@ -32,6 +32,26 @@ function Page() {
                 </CardContent>
                 <CardActions>
                     <Button size="small">Learn More</Button>
+                      <Button
+                        variant="outlined"
+                        component="a"
+                        href="/auth/logout"
+                        sx={{
+                          width: '100%',
+                          py: 1.5,
+                          fontSize: '1rem',
+                          borderRadius: '8px',
+                          borderColor: 'divider', // Use theme divider color for border
+                          color: 'text.primary', // Use theme primary text color
+                          '&:hover': {
+                            backgroundColor: 'action.hover', // Use theme hover color
+                            borderColor: 'primary.main', // Highlight border on hover
+                          },
+                          transition: 'all 0.3s ease-in-out',
+                        }}
+                      >
+                        No soy
+                      </Button>
                 </CardActions>
             </Card>
         </>
