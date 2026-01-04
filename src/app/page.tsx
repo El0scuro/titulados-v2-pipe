@@ -23,6 +23,7 @@ import Alerta from "./components/alerta/alert";
  * @returns {JSX.Element} The Home component.
  */
 export default function Home() {
+  
   const [alerta, setAlerta] = useState<{
   type: 'info' | 'error' | 'success' | 'warning';
   message: React.ReactNode;
@@ -63,18 +64,18 @@ export default function Home() {
    */
   async function handleLogin() {
     try {
-    
-
       // Make an API call to validate the user's role, including the access token
-      
       const response = await axios.get(`${__url}/user/validate`, {
       headers: { Authorization: `Bearer ${token}` }
       });
 
-      
-
       // Redirect based on the user's role
-      // Redirect based on the user's role
+      let lista: string[] = ["profesor", "estudiante", "jefatura", "secretario"];
+      for (let i = 0; i < lista.length; i++) {
+        if (response.data?.user === lista[i]) {
+        router.push(`/${lista[i]}`); // Redirect to profesores dashboard
+      }
+      }
       if (response.data?.user === 'profesor') {
         router.push("/profesor"); // Redirect to profesores dashboard
       } else if (response.data?.user === 'estudiante') {

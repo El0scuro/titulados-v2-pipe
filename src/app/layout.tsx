@@ -7,7 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { auth0 } from "../lib/auth0"
 import { TokenProvider } from './context/TokenContext';
 import Login from "./components/login/page";
-import estilo from "./components/login/page.module.css"
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await auth0.getSession()
-  
+  const session = await auth0.getSession();
 
   if (!session) {
     return (
@@ -40,6 +39,8 @@ export default async function RootLayout({
   }
 
   if (session) {
+  
+
     return (
       <html lang="en">
         <body>

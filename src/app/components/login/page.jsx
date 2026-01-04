@@ -1,12 +1,15 @@
-import Boton_Perfil from "../../components/boton_login/botones";
+'use client';
+import Botones from "../../components/boton_login/botones";
 import Estilo_login from "./page.module.css"
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedinIcon from '@mui/icons-material/LinkedIn';
 import Image from "next/image";
-import Foto1 from "../Fotos_info/LOGO-UV-APU-AZUL_1.png"
-import Foto2 from "../Fotos_info/logo1.png"
+import Foto1 from "../Fotos_info/LOGO-UV-APU-AZUL_1.png";
+import Foto2 from "../Fotos_info/logo1.png";
+
 export default function LoginPage(){
+  
     return (
         <div className= {Estilo_login.contenedor_page}>
             <header className={Estilo_login.header}>

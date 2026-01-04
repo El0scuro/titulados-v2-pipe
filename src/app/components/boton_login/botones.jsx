@@ -11,7 +11,7 @@ const perfiles = [
       title: 'Estudiantes',
       description: 'Suba sus documentos necesarios para iniciar su proceso de titulación.',
       icon: PersonIcon,
-      link: '/auth/login',
+      link: '/auth/login?role=estudiante',
       
     },
     {
@@ -19,21 +19,21 @@ const perfiles = [
       title: 'Secretari@s',
       description: 'Gestione alumnos.',
       icon: BusinessCenterIcon,
-      link: '/auth/login',
+      link: '/auth/login?role=secretaria',
     },
     {
       id: 'academicos',
       title: 'Académicos',
       description: 'Gestione a sus alumnos.',
       icon: SchoolIcon,
-      link: '/auth/login',
+      link: '/auth/login?role=academico',
     },
     {
       id: 'jefaturas',
       title: 'Jefaturas',
       description: 'Ver información generalizada del sistema.',
       icon: SettingsIcon,
-      link: '/auth/login',
+      link: '/auth/login?role=jefatura',
     },
   ];
 export default function Boton_Perfil() {
@@ -45,7 +45,7 @@ export default function Boton_Perfil() {
                     <Link 
                       key={perfil.id} 
                       href={perfil.link} 
-                      className={estilo.boton}                  
+                      className={estilo.boton} 
                     >
                         <Icon sx={{
                           fontSize: 70,
