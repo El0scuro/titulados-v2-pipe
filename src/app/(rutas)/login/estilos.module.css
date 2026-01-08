@@ -6,6 +6,12 @@
     flex-direction: column;
     align-items: center;
     gap: 50px;
+    height: 100vh;         
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: cambio_Foto 55s infinite;
 }
 
 .header{
@@ -93,42 +99,47 @@
 }
 /*-----------------------------------------*/ /*Fondo pantalla login*/
 .background{
-    background-size: cover;
-    animation: cambio_Foto 55s infinite;
+  height: 100vh;         
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: cambio_Foto 55s infinite;
 }
 
 @keyframes cambio_Foto {
   0%, 9% {
-    background-image: url("../../../Facultades/Arquitectura.jpeg");
+    background-image: url("../../components/Facultades/Arquitectura.jpeg");
   }
   9.1%, 18.1% {
-    background-image: url("../../../Facultades/Ciencias\ del\ Mar\ y\ de\ Recursos\ Naturales.webp");
+    background-image: url("../../components/Facultades/Ciencias\ del\ Mar\ y\ de\ Recursos\ Naturales.webp");
   }
   18.2%, 27.2% {
-    background-image: url("../../../Facultades/Ciencias\ Económicas\ y\ Administrativas.webp");
+    background-image: url("../../components/Facultades/Ciencias\ Económicas\ y\ Administrativas.webp");
   }
   27.3%, 36.3% {
-    background-image: url("../../../Facultades/Ciencias\ Sociales.webp");
+    background-image: url("../../components/Facultades/Ciencias\ Sociales.webp");
   }
   36.4%, 45.4% {
-    background-image: url("../../../Facultades/Ciencias.jpg");
+    background-image: url("../../components/Facultades/Ciencias.jpg");
   }
   45.5%, 54.5% {
-    background-image: url("../../../Facultades/Derecho.jpeg");
+    background-image: url("../../components/Facultades/Derecho.jpeg");
   }
   54.6%, 63.6% {
-    background-image: url("../../../Facultades/Farmacia.webp");
+    background-image: url("../../components/Facultades/Farmacia.webp");
   }
   63.7%, 72.7% {
-    background-image: url("../../../Facultades/Humanidades\ y\ Educación.webp");
+    background-image: url("../../components/Facultades/Humanidades\ y\ Educación.webp");
   }
   72.8%, 81.8% {
-    background-image: url("../../../Facultades/Ingeniería.webp");
+    background-image: url("../../components/Facultades/Ingeniería.webp");
   }
   81.9%, 90.9% {
-    background-image: url("../../../Facultades/Medicina.webp");
+    background-image: url("../../components/Facultades/Medicina.webp");
   }
   91%, 100% {
-    background-image: url("../../../Facultades/Odontología.webp");
+    background-image: url("../../components/Facultades/Odontología.webp");
   }
 }

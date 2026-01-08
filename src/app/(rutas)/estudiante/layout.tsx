@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { StyledRoot } from '../StyledRoot';
-import theme from '../theme'
+import { StyledRoot } from '../../StyledRoot';
+import theme from '../../theme'
 import { ThemeProvider } from "@mui/material/styles";
-import { auth0 } from "../../lib/auth0"
-import { TokenProvider } from '../context/TokenContext';
-import Login from "../components/login/page";
+import { auth0 } from "../../../lib/auth0"
+import { TokenProvider } from '../../context/TokenContext';
+import Login from "../login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,20 +29,20 @@ export default async function RootLayout({
   if (!session) {
     return (
       <html lang="en">
-        <body>
+       
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <Login />
             </ThemeProvider>
           </AppRouterCacheProvider>
-        </body>
+        
       </html>
     )
   }
 
   if (session) {
     return (
-        <body className={inter.className}>
+        <main className={inter.className}>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <StyledRoot>
@@ -53,7 +53,7 @@ export default async function RootLayout({
             </ThemeProvider>
           </AppRouterCacheProvider>
 
-        </body>
+        </main>
 
     )
   }

@@ -16,8 +16,6 @@ export async function GET() {
   // Obtén el rol del custom claim
   const rol = decoded['https://uv.cl/rol'] as string | undefined;
 
-  console.log('Rol desde token en route:', rol);
-  console.log("ROUTEE",session);
   return NextResponse.json({
     accessToken: session.tokenSet.accessToken,
     rol, // Devuelve el rol al front

@@ -1,16 +1,51 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState} from "react";
 import { Box, Button, Card, Grid, Paper, Typography } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { useRouter } from "next/navigation";
-import __url from "../../lib/const"; // Assuming this path is correct for your project
-import { useAccessToken } from '../context/TokenContext'; // Assuming this path is correct
+import __url from "../../../lib/const"; // Assuming this path is correct for your project
+import { useAccessToken } from '../../context/TokenContext'; // Assuming this path is correct
 import { useUser } from "@auth0/nextjs-auth0";
-import handleLogin from "../page";
-import Alerta from "../components/alerta/alert";
+import Alerta from "../../components/alerta/alert";
+import Cargando from "../../components/loading/page";
+import { useSearchParams } from "next/navigation";
+
+
 export default function Page(){
+    const [alerta, setAlerta] = useState<{
+        type: 'info' | 'error' | 'success' | 'warning';
+        message: React.ReactNode;
+        } | null>(null);
     const { user, isLoading } = useUser();
     const token = useAccessToken();
+
+    const searchParams = useSearchParams();
+
+    const codigo = searchParams.get("error");
+    const rol = searchParams.get("rol");
+    console.log(searchParams,"||",codigo, "||", rol);
+    
+    let mensaje : any;
+
+    useEffect(() => {
+      if (codigo === "404" && rol) {
+        setAlerta({
+          type: 'warning',
+          message: (
+            <>
+              <b>{rol}</b> no registrado/a en el sistema.<br />
+              Contactar al académico Sergio González al correo:<br />
+              <a href="mailto:SERGIO.GONZALEZ@UV.CL?subject=Problema%20de%20acceso&body=No%20puedo%20ingresar%20al%20sistema">
+                sergio.gonzales@uv.cl
+              </a>
+            </>
+          ),
+        });
+      }
+    }, [codigo, rol]);
+
+    if(isLoading){
+      return <Cargando/>;
+    }
+
     return (
     
     <>
@@ -58,7 +93,7 @@ export default function Page(){
                     component="h1"
                     sx={{ mb: 2, fontWeight: 'bold', color: 'primary.main' }}
                   >
-                    Sistema de titulados UV
+                    Sistema de Seminario de Título
                   </Typography>
                   
                 </Grid>
@@ -92,19 +127,18 @@ export default function Page(){
                     </Typography>
                   </Card>
                 </Grid>
-             {/**    {alerta && (
-                  <Alerta 
-                    type={alerta.type}  
-                    message={alerta.message}
-                  />
-                )}
-                  */}
+                  {alerta && (
+                    <Alerta 
+                      type={alerta.type}  
+                      message={alerta.message}
+                    />
+                  )}
+               
                 {/* Confirm Button */}
                 <Grid component="div">
                   <Button
                     variant="contained"
                     disabled={!token}  // espera a que token exista
-                    onClick={handleLogin}
                     sx={{
                       width: '100%',
                       py: 1.75,

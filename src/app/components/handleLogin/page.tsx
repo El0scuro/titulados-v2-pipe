@@ -1,10 +1,7 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import __url from "../../../lib/const"; // Assuming this path is correct for your project
-import { useAccessToken } from '../../context/TokenContext'; // Assuming this path is correct
-import { useUser } from "@auth0/nextjs-auth0";
 import axios from "axios";
-import Alerta from "../alerta/alert";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default async function handleLogin(token: string, router: AppRouterInstance) {
@@ -20,33 +17,17 @@ export default async function handleLogin(token: string, router: AppRouterInstan
       let lista: string[] = ["profesor", "estudiante", "jefatura", "secretario"];
       for (let i = 0; i < lista.length; i++) {
         if (response.data?.user === lista[i]) {
-        router.push(`/${lista[i]}`); // Redirect to profesores dashboard
+        router.push(`/${lista[i]}?rol=${lista[i]}&mail=${response.data?.mail}`); // Redirect to rol dashboard
       }
       }
-      if (response.data?.user === 'profesor') {
-        router.push("/profesor"); // Redirect to profesores dashboard
-      } else if (response.data?.user === 'estudiante') {
-        router.push("/estudiante"); // Redirect to student dashboard
-      } else if (response.data?.user === 'jefatura') {
-        router.push("/jefatura"); // Redirect to jefatura dashboard
-      } else if (response.data?.user === 'secretario') {
-        router.push("/secretario"); // Redirect to secretary dashboard
-      } 
-
-      
     } catch (error:any) {
+      const rol = error.response.data?.user;
+      const codigo = error.response.status;
       // Log any errors that occur during the login process
-      router.push('/no_registrado');
-      if (error.response?.status === 404) {
-        const rol = error.response.data?.user;
-        alertaLogin(token, rol);
-      }
-      
-      // Optionally, display an error message to the user
-      // For example, using a Snackbar or a custom modal
+      router.push(`/no_registrado?rol=${rol}&error=${codigo}`);
     }
   }
-export function alertaLogin(token: string, rol:any){
+export function alertaLogin(rol:any){
   const [alerta, setAlerta] = useState<{
     type: 'info' | 'error' | 'success' | 'warning';
     message: React.ReactNode;
@@ -56,9 +37,9 @@ export function alertaLogin(token: string, rol:any){
         message:(
           <>
              <b>{rol}</b> no registrado/a en el sistema.<br/>
-            Contactar al académico Sergio Gonzalez al correo:<br/>
-            <a href="mailto:SERGIO.GONZALEZ@UV.CL?subject=Problema%20de%20acceso&body=No%20puedo%20ingresar%20al%20sistema">
-              SERGIO.GONZALEZ@UV.CL
+            Contactar al académico Sergio González al correo:<br/>
+            <a href="mailto:sergio.gonzalez@uv.cl?subject=Problema%20de%20acceso&body=No%20puedo%20ingresar%20al%20sistema">
+              sergio.gonzales@uv.cl
             </a>
           </> 
         )

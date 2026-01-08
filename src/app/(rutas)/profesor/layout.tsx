@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
-import { StyledRoot } from './StyledRoot';
-import theme from './theme'
-import { ThemeProvider } from "@mui/material/styles";
-import { auth0 } from "../lib/auth0"
-import { TokenProvider } from './context/TokenContext';
-import Login from "./(rutas)/login/page";
-import './globals.css';
 
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { StyledRoot } from '../../StyledRoot';
+import theme from '../../theme'
+import { ThemeProvider } from "@mui/material/styles";
+import { auth0 } from "../../../lib/auth0"
+import { TokenProvider } from '../../context/TokenContext';
+import Login from "../login/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sistema de seguimientos académicos uv",
-  description: "Página de inicio",
+  title: "Documentos y concentimiento estudiante",
+  description: "Documentos y concentimiento para el estudiante",
+  keywords: "estudiante, documentos, concentimiento, fotos, carnet",
 };
 
 export default async function RootLayout({
@@ -23,28 +23,26 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await auth0.getSession();
+  const session = await auth0.getSession()
+
 
   if (!session) {
     return (
       <html lang="en">
-        <body>
+       
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <Login />
             </ThemeProvider>
           </AppRouterCacheProvider>
-        </body>
+        
       </html>
     )
   }
 
   if (session) {
-  
-
     return (
-      <html lang="en">
-        <body>
+        <main className={inter.className}>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
               <StyledRoot>
@@ -55,8 +53,7 @@ export default async function RootLayout({
             </ThemeProvider>
           </AppRouterCacheProvider>
 
-        </body>
-      </html>
+        </main>
 
     )
   }

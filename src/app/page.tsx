@@ -1,12 +1,12 @@
 'use client';
-import React, { useState, useEffect } from "react";
-import { Box, Button, Card, Grid, Paper, Typography } from "@mui/material";
+import { Paper, } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import __url from "../lib/const"; // Assuming this path is correct for your project
 import { useAccessToken } from './context/TokenContext'; // Assuming this path is correct
 import { useUser } from "@auth0/nextjs-auth0";
 import handleLogin from "./components/handleLogin/page";
 import { useRouter } from "next/navigation";
+import carga from "./components/loading/page";
 
 /**
  * Home Component
@@ -36,7 +36,7 @@ export default function Home() {
   }));
 
   // Auth0 hook to get user information and loading state
-  const { user, isLoading } = useUser();
+  const { isLoading } = useUser();
   // Custom hook to get the access token
   const token = useAccessToken();
   // Next.js router hook for navigation
@@ -45,13 +45,7 @@ export default function Home() {
   
     
   if (isLoading) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24">
-        <Typography variant="h6" color="text.secondary">
-          Cargando información de usuario...
-        </Typography>
-      </main>
-    );
+    carga();
   }
   if(!isLoading && token){
     handleLogin(token, router);
