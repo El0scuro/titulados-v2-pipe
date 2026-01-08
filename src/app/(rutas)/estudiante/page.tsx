@@ -9,13 +9,15 @@ import { Box, Dialog, DialogActions,
 import estilo from "./style.module.css";
 import { useSearchParams } from "next/navigation";
 import __url from "../../../lib/const";
+import Cargando from "@/app/components/loading/page";
+import { useUser } from '@auth0/nextjs-auth0';
 
 function Page() {
   const searchParams = useSearchParams();
   const mail = searchParams.get("mail");
   console.log(mail)
   
-
+  const {user,isLoading} = useUser();
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const handleClose = () => {
@@ -105,134 +107,136 @@ function Page() {
       );
     }
   };
-    return (
-        <>
+  if(isLoading){
+    return <Cargando/>;
+  }
+  return (
+      <>
         <Button
-        href="/auth/logout"
-        variant="contained"
-        color="secondary"
-        startIcon={<LogoutIcon />}
-        style={{ position: "absolute", top: "20px", right: "20px" }}
-      >
+          href="/auth/logout"
+          variant="contained"
+          color="secondary"
+          startIcon={<LogoutIcon />}
+          style={{ position: "absolute", top: "20px", right: "20px" }}
+        >
         Salir
-      </Button>
+        </Button>
         <Box sx={{
+          display:"flex", 
+          flexDirection:"column", 
+          justifyContent:"center", 
+          alignItems:"center", 
+          gap:"100px"}} 
+          className={estilo.contenedor_page}
+        >
+          <Box sx={{
+            width:"550px", 
+            height:"250px", 
+            backgroundColor:"lightgray", 
             display:"flex", 
             flexDirection:"column", 
             justifyContent:"center", 
-            alignItems:"center", 
-            gap:"100px"}} 
-            className={estilo.contenedor_page}
-        >
-            <Box sx={{
-                width:"550px", 
-                height:"250px", 
-                backgroundColor:"lightgray", 
-                display:"flex", 
-                flexDirection:"column", 
-                justifyContent:"center", 
-                alignItems:"center",
-                gap:"10px",
-                borderRadius:"3%"}}
-            >
-                <Box sx={{ 
-                    padding: 2, 
-                    display: "flex", 
-                    position:"relative",
-                    bottom:"10px",
-                    textAlign: 'center',
-                    alignItems:"flex-start", 
-                    justifyContent:"center"}}>
-                    <Typography variant="h4" >Bienvenido al Sistema de Titulación</Typography>
-                </Box>
-                <Box sx={{ 
-                    padding: 2, 
-                    height:"70px", 
-                    width:"500px", 
-                    display:"flex",
-                    textAlign:"center",
-                    position:"relative",
-                    bottom:"50px"}} >
-                    <Typography variant='body1' sx={{ marginTop: 2}}>
-                        Por favor, complete la ficha de inscripción para alumnos. Asegúrese 
-                        de proporcionar toda la información requerida de manera precisa y completa. 
-                    </Typography>
-                </Box>
-                <Box sx={{
-                    display:"flex", 
-                    justifyContent:"center", 
-                    alignItems:"center",
-                    position:"relative",
-                    bottom:"30px",
-                    gap:"15px",
-                    textAlign:"center"}}>
-                <Button
-                    onClick={handleFileDownload}
-                    variant="contained"
-                    sx={{
-                        backgroundColor: "rgba(0, 150, 136, 1)",
-                        height:"50px",
-                        width:"180px",
-                        transition: "transform 0.3s ease-out, box-shadow 0.3s ease-out",
-                        "&:hover": {
-                        transform: "translateY(-4px)",
-                        boxShadow: 6}
-                        
-                    }}      
-                >
-                    Descargar Ficha de Inscripción
-                </Button>
-                <input
-                    className={estilo.input}
-                    accept="*"
-                    id="upload-ficha"
-                    type="file"
-                    onChange={(e) => handleFileUpload(e)}
-                ></input>
-                <label
-                htmlFor="upload-ficha"
-                >
-                <Button
-                    variant="contained"
-                    component="span"
-                    sx={{ 
-                        backgroundColor: "rgba(0, 60, 88, 1)",
-                        height:"50px",
-                        width:"180px",
-                        transition: "transform 0.3s ease-out, box-shadow 0.3s ease-out",
-                        "&:hover": {
-                        transform: "translateY(-4px)",
-                        boxShadow: 6}
-                    }}
-                >
-                    Subir Ficha de Inscripción
-                </Button>
-                    </label>
-                </Box>
-                </Box>
-                <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>Notificación</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>¡Archivo subido con éxito!</DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Cerrar</Button>
-                    </DialogActions>
-                </Dialog>
-                <Dialog open={open2} onClose={handleClose2}>
-                    <DialogTitle>Notificación</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Hubo un error al subir el archivo, pruebe nuevamente más tarde
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose2}>Cerrar</Button>
-                    </DialogActions>
-                </Dialog>
+            alignItems:"center",
+            gap:"10px",
+            borderRadius:"3%"}}
+          >
+            <Box sx={{ 
+              padding: 2, 
+              display: "flex", 
+              position:"relative",
+              bottom:"10px",
+              textAlign: 'center',
+              alignItems:"flex-start", 
+              justifyContent:"center"}}>
+              <Typography variant="h4" >Bienvenido al Sistema de Titulación</Typography>
             </Box>
-        </>
-    )
+            <Box sx={{ 
+              padding: 2, 
+              height:"70px", 
+              width:"500px", 
+              display:"flex",
+              textAlign:"center",
+              position:"relative",
+              bottom:"50px"}} >
+              <Typography variant='body1' sx={{ marginTop: 2}}>
+                  Por favor, complete la ficha de inscripción para alumnos. Asegúrese 
+                  de proporcionar toda la información requerida de manera precisa y completa. 
+              </Typography>
+            </Box>
+            <Box sx={{
+              display:"flex", 
+              justifyContent:"center", 
+              alignItems:"center",
+              position:"relative",
+              bottom:"30px",
+              gap:"15px",
+              textAlign:"center"}}>
+              <Button
+                onClick={handleFileDownload}
+                variant="contained"
+                sx={{
+                  backgroundColor: "rgba(0, 150, 136, 1)",
+                  height:"50px",
+                  width:"180px",
+                  transition: "transform 0.3s ease-out, box-shadow 0.3s ease-out",
+                  "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6}
+                }}      
+              >
+                Descargar Ficha de Inscripción
+              </Button>
+              <input
+                className={estilo.input}
+                accept="*"
+                id="upload-ficha"
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+              ></input>
+              <label
+                htmlFor="upload-ficha"
+              >
+              <Button
+                variant="contained"
+                component="span"
+                sx={{ 
+                  backgroundColor: "rgba(0, 60, 88, 1)",
+                  height:"50px",
+                  width:"180px",
+                  transition: "transform 0.3s ease-out, box-shadow 0.3s ease-out",
+                  "&:hover": {
+                  transform: "translateY(-4px)",
+                  boxShadow: 6}
+                }}
+              >
+                Subir Ficha de Inscripción
+              </Button>
+                </label>
+            </Box>
+          </Box>
+          <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Notificación</DialogTitle>
+              <DialogContent>
+                  <DialogContentText>¡Archivo subido con éxito!</DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                  <Button onClick={handleClose}>Cerrar</Button>
+              </DialogActions>
+          </Dialog>
+          <Dialog open={open2} onClose={handleClose2}>
+              <DialogTitle>Notificación</DialogTitle>
+              <DialogContent>
+                  <DialogContentText>
+                      Hubo un error al subir el archivo, pruebe nuevamente más tarde
+                  </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                  <Button onClick={handleClose2}>Cerrar</Button>
+              </DialogActions>
+          </Dialog>
+        </Box>
+      </>
+  )
 
 
 }
